@@ -1,0 +1,54 @@
+/* -------------------  MOBILE  --------------------- */
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  color: rgb(192, 73, 18)
+}
+
+ol, ul {
+  list-style: none;
+}
+
+.rover-container:hover {
+  display: flex;
+  flex-direction: column;
+  background-color: cadetblue;
+}
+
+.rover-card {
+  display: flex;
+}
+
+
+header {
+  background-color: black;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+}
+
+footer {
+  background-color: black;
+}
+
+/* -------------------  TABLET  --------------------- */
+@media (min-width: 768px) {
+  /* use mobile */
+}
+
+/* -------------------  DESKTOP  -------------------- */
+
+@media (min-width: 1224px) {
+  /* use mobile */
+}
+
+/* -------------------  LARGE SCREENS  -------------- */
+
+@media (min-width: 1824px) {
+  /* use mobile */
+}

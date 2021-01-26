@@ -1,0 +1,23 @@
+load/fetch/server
+https://stackoverflow.com/questions/5823722/how-to-serve-an-image-using-nodejs/40899767
+https://dev.to/ivana_croxcatto/hiding-api-keys-in-your-code-1h0a
+https://www.freecodecamp.org/news/javascript-fetch-api-tutorial-with-js-fetch-post-and-header-examples/
+https://www.youtube.com/watch?v=ZtLVbJk7KcM&list=PLRqwX-V7Uu6YxDKpFzf_2D84p0cyk4T7X&index=16 weather
+https://jasonwatmore.com/post/2016/06/22/nodejs-setup-simple-http-server-local-web-server
+https://blog.codeanalogies.com/2018/04/26/web-servers-explained-by-running-a-microbrewery/
+https://medium.com/javascript-in-plain-english/deploying-a-localhost-server-with-node-js-and-express-js-58775f098407
+https://knowledge.udacity.com/questions/392738
+
+
+
+https://medium.com/better-programming/8-common-data-structures-in-javascript-3d3537e69a27
+https://medium.com/@dtinth/immutable-js-persistent-data-structures-and-structural-sharing-6d163fbd73d2
+https://eloquentjavascript.net/05_higher_order.html#c_5c+C2+9IG1
+https://www.codeanalogies.com/
+
+https://www.freecodecamp.org/news/state-in-javascript-explained-by-cooking-a-simple-meal-2baf10a787ee/
+
+https://api.nasa.gov/planetary/apod?api_key=XLEGvcubeqKBhXgHfFeGEGFclnxOdLLlUJb0UggR
+
+
+https://dmitripavlutin.com/javascript-object-destructuring/
