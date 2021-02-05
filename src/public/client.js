@@ -1,12 +1,12 @@
 
 
-let store = {
+let store = Immutable.Map({
     apod: '',
     selectedRovers: '',
     data: [],
     rovers: Immutable.List(['Curiosity', 'Opportunity', 'Spirit']),
     //roversPhoto: new Map([['Curiosity',{}],['Opportunity',{}],['Spirit',{}]])
-}
+})
 
 // add our markup to the page
 const root = document.getElementById('root')
