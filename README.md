@@ -8,6 +8,19 @@ You are going to create a Mars rover dashboard that consumes the NASA API. Your 
 
 ### Getting Started
 
+npm install
+npm i -g npm
+npm i dotenv
+npm i express
+npm i body-parser
+npm i path
+
+npm i immutable
+npm i jquery
+yarn install
+yarn start
+
+
 We have supplied some of the foundational code for you. So follow these steps to get started:
 
 1. We'll start with the typical setup - clone theis repo and install the dependencies

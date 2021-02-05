@@ -8,14 +8,28 @@ body {
   color: rgb(192, 73, 18)
 }
 
+
+header {
+  background-color: rgb(173, 173, 173);
+}
+
+
 ol, ul {
   list-style: none;
 }
 
-.rover-container:hover {
+
+.rover-container  {
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
+  padding: 14px 16px;
   background-color: cadetblue;
+}
+
+.rover-container a:hover {
+  background-color: #969696;
+  color: rgb(175, 175, 175)
 }
 
 .rover-card {
@@ -23,9 +37,32 @@ ol, ul {
 }
 
 
-header {
-  background-color: black;
+.nav {
+  background-color: rgb(187, 186, 186);
+  overflow: hidden;
 }
+
+.nav a {
+  float: center;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.nav a:hover {
+  background-color: #eba250;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.nav a.active {
+  background-color:  rgb(231, 197, 169);
+  color: white;
+}
+
+
 
 main {
   flex: 1;
@@ -33,7 +70,7 @@ main {
 }
 
 footer {
-  background-color: black;
+  background-color:  rgb(173, 173, 173);
 }
 
 /* -------------------  TABLET  --------------------- */

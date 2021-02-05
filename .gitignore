@@ -1,3 +1,5 @@
 node_modules
 .env
 .DS_Store
+ignore2bk.js
+ignore3bk.js

@@ -1,122 +1,185 @@
-// yarn start
-// http:localhost:3000
-//https://www.freecodecamp.org/news/heres-how-you-can-actually-use-node-environment-variables-8fdf98f53a0a/#:~:text=env%20files%20allow%20you%20to,in%20there%20on%20different%20lines.&text=To%20read%20these%20values%2C%20there,the%20dotenv%20package%20from%20npm.
-
-//filter(), map(), reduce()
-
-
-const { Immutable } = require('immutable');
-
-const { List } = require('immutable');
-const { Map } = require('immutable');
-const { fromJS } = require('immutable');
-
-//https://api.nasa.gov/planetary/apod?api_key=XLEGvcubeqKBhXgHfFeGEGFclnxOdLLlUJb0UggR
-//https://api.nasa.gov/planetary/apod?api_key=XLEGvcubeqKBhXgHfFeGEGFclnxOdLLlUJb0UggR
-require('dotenv').config();
 
 
 let store = {
-    data: '',
     apod: '',
-    whichRover: Immutable.List(['Curiosity', 'Opportu nity', 'Spirit']),
+    selectedRovers: '',
+    data: [],
+    rovers: Immutable.List(['Curiosity', 'Opportunity', 'Spirit']),
+    //roversPhoto: new Map([['Curiosity',{}],['Opportunity',{}],['Spirit',{}]])
 }
 
 // add our markup to the page
 const root = document.getElementById('root')
 
+/*
+// Navigation bar to switch between rovers/imageoftheday/weather
+const Nav = (rovers, selectedRovers) => { //(rovers)
+        const navBar = document.getElementbyClass('navTab')
+        const chooseBtn = selected === { selectedRover} ? 'active' : 'inactive'
+        <div class="navTab" onclick  updateStore({selectedRover: ${rovers}})
+        return `
+        <div class="nav">
+          <a class="" id="${selected}" href="#">${selectedRover}</a>
+          <a class="nav-link" href="#">Opportunity Rover</a>
+          <a class="nav-link" href="#">Spirit Rover</a>
+          <a class="nav-link" href="#">Image of the Day</a>
+        </div>
+        `
+    
+    }
+    
+*/
+
 const updateStore = (store, newState) => {
     store = Object.assign(store, newState)
     render(root, store)
+    console.log("inside UpdateStore")
 }
 
 const render = async (root, state) => {
     root.innerHTML = App(state)
 }
 
+/*
+// select rover on nav bar 
+function chooseRover (selectedNav) {
+    updateStore(store, { selectedRovers: selectedNav })
+  	console.log(selectedRovers)
+}
+window.chooseRover = chooseRover
+*/
 
 // create content
 const App = (state) => {
-    let { rovers, apod } = state
-
+    let rovers = state.rovers;
+    let data = state.data;
+    let selectedRovers = state.selectedRovers;
+    let roverPhotos = state.roverPhotos;
+    let apod = state.apod;
+    console.log("inside App")
     return `
-        <header></header>
+        <header>
+		
+		</header>
         <main>
-            ${Greeting(store.user.name)}
             <section>
                 <h3>Put things on the page!</h3>
-                <p>Here is an example section.</p>
-                <p>
-                    One of the most popular websites at NASA is the Astronomy Picture of the Day. In fact, this website is one of
-                    the most popular websites across all federal agencies. It has the popular appeal of a Justin Bieber video.
-                    This endpoint structures the APOD imagery and associated metadata so that it can be repurposed for other
-                    applications. In addition, if the concept_tags parameter is set to True, then keywords derived from the image
-                    explanation are returned. These keywords could be used as auto-generated hashtags for twitter or instagram feeds;
-                    but generally help with discoverability of relevant imagery.
-                </p>
                 ${ImageOfTheDay(apod)}
-                ${RoverData(state, roverdetails)}
-                ${RoverPhotos(state, photoslide)}
+				
+				${RoverData(state, getRoverData)}
             </section>
         </main>
         <footer></footer>
     `
 }
 
+
+
 // listening for load event because page should load before any JS is called
 window.addEventListener('load', () => {
     render(root, store)
+    console.log("inside window.EventListener")
 })
+
+
 
 // ------------------------------------------------------  COMPONENTS
 
-// Pure function that renders conditional information -- THIS IS JUST AN EXAMPLE, you can delete it.
-const RoverData = (state, roverDetails) => {
-    let { rover } = state;
-    if (name) {
+/*
+const RoverPhotos = (store, getRoverPhotos) => {
+  
+    const showPhotos = roverPhotos[rovers]
+    
+    console.log("inside RoverPhotos to call getRP")
+
+    const photoURL = showPhotos.map(photo => photo.img_src)
+
+    //if photos still do not exist, update the condition and store imagery
+    if(showPhotos === undefined){
+        console.log("Check Rover photos is not null")
+        return getRoverPhotos(rovers, state) 
+    } else if (showPhotos) {
+        console.log("Check Rover photos are loading.just before")
         return `
-            <h1>Welcome, ${name}!</h1>
+            <div class="rov-photos">
+                ${photoURL}
+            </div>    
         `
+    } else {
+        console.log("no condition met in photo loading.->exiting RoverPhotos")
+        return `Hold on while we fetch the images`
     }
-    //
-    return `
-        <h1>Hello!</h1>
-    `
-}
-const showRoverPhoto = (state, photoSlide, url, roverName) => {
-    return (`
-    <img class="image" src="${url}" `)
-}
-
-const RoverPhotos = (state , phhotos) => {
-    const { roverPhoto } = Object.keys(photos).find(key => key === roverName)
-
-    fetch(`http://localhost:3000/rover-photos?name=${roverName}`)
-    .then(res => res,json())
-    .then(roverPhoto => updateStore(store, { roverPhoto }))
 }
 
 
-//array of photos requested
+// Pure function that renders conditional information 
+const RoverData = (store, getRoverData) => {
+    const storeObj = store.toJS();
 
-// create Rover photo gallery
+    const showRoverInfo = rovers[selectedRovers]
+
+    console.log("inside RoverData to call getRD & RoverPhotos")
+
+    const photoDate = rovers.earth_date
+    console.log(photoDate)
+    const launch = rovers.launch_date
+    console.log(launch)
+    const land = rovers.landing_date
+    console.log(land)
+    const photoTitle = rovers.name
+    console.log(photoTitle)
+    const missionSts = rovers.status
+    
+    const photoDsc = `<ul class="rover-info">
+                        <li>Rover name: ${showRoverInfo}</li>
+                        <li>Rover name: ${showRoverInfo} was launched on: ${launch}</li>
+                        <li>Rover name: ${showRoverInfo} has landed on Mars on: ${land}</li>
+                        <li>Rover name: The picture was taken on ${photoDate}</li>
+                        <li>Rover name: Rover's mission status: ${missionSts}</li>
+                    </ul>`
+
+    //if no SelectedRover still has no rover chosen stored, update the condition
+    if (showRoverInfo === undefined) {
+        console.log("inside if rov=undefined")
+        return getRoverData(state)
+        
+    } else if(showRoverInfo) {
+        console.log("inside else if to display data and call RoverPhotos")
+        return `
+            <div class="info">
+                <h4 class="photo-title">${photoTitle}</h4>
+                <p class="description">${photoDsc}</p>
+            </div>
+
+            ${roverPhotos}
+                       
+        `
+    } else {
+        console.log("failed to load any data inside RovData")
+        return `Fetching rovers`
+    }
+}
+*/
+
 // Example of a pure function that renders infomation requested from the backend
-const ImageOfTheDay = (apod) => {
-
+const ImageOfTheDay = (store) => {
+    
+    console.log("inside ImageofDay to call apod")
     // If image does not already exist, or it is not from today -- request it again
     const today = new Date()
+    console.log(today)
     const photodate = new Date(apod.date)
-    console.log(photodate.getDate(), today.getDate());
+    console.log(photodate);
 
-    console.log(photodate.getDate() === today.getDate());
-    if (!apod || apod.date === today.getDate() ) {
+    console.log(today);
+    if (!apod || apod.date === today) {
         getImageOfTheDay(store)
     }
 
     // check if the photo of the day is actually type video!
-    if (apod.media_type === "video") {
+    if (apod.media_type === "photo") {
         return (`
-            <p>See today's featured video <a href="${apod.url}">here</a></p>
+            <p>See today's featured photo <a href="${apod.url}">here</a></p>
             <p>${apod.title}</p>
             <p>${apod.explanation}</p>
         `)
@@ -129,18 +192,55 @@ const ImageOfTheDay = (apod) => {
 }
 
 
-// ------------------------------------------------------  API CALLS
+//------------------------------------------------------  API CALLS
 
 // Example API call
 const getImageOfTheDay = (state) => {
     let { apod } = state
-
-    fetch(`http://localhost:3000/apod`)
+	console.log('print from insde API CALLgetImageofDay for apod') 
+    
+    fetch(`https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/apod`)
         .then(res => res.json())
-        .then(apod => updateStore(store, { apod }))
-
-    return data
+        .then((apod) => {
+      	JSON.parse(JSON.stringify(apod));
+      	updateStore.merge(store, { apod })})
+        console.log('print json for apod') 
+        console.log(JSON.stringify(apod))
+		console.log(store.apod)
+  return apod;
 }
 
 
+const getRoverData = (state, rovers) => {
+	console.log('print from insde API CALLgetRoverData')
+    
+    fetch(`https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/rover?name=${rovers}`)
+  		.then(res => res.json())
+  		.then((data) => {
+      	JSON.parse(JSON.stringify(data));
+      	updateStore.merge(store, data)
+    	})
+        console.log('print res.json() for getPhotos') 
+        console.log(JSON.stringify(data))    
+  		console.log(store.data)
+  return data;
+}
 
+
+/*
+const getRoverPhotos = async (rovers, state) => {
+	//const rovPhotos = state.roverPhotos
+  
+	console.log('print from insde API CALLgetRoverPhotos ')
+  
+  
+    fetch(`https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/rover-photos?name=${state.rovers}`)
+    	.then(res => res.json())
+  		.then((roverPhotos) => {
+      	 JSON.parse(JSON.stringify(roverPhotos));
+         updateStore.merge(state, roverPhotos)
+   		 });
+         console.log('print json for getPhotos') 
+         console.log(JSON.stringify(roverPhotos))
+         console.log(store.roverPhotos)
+}*/

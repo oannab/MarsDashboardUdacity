@@ -8,7 +8,10 @@ https://blog.codeanalogies.com/2018/04/26/web-servers-explained-by-running-a-mic
 https://medium.com/javascript-in-plain-english/deploying-a-localhost-server-with-node-js-and-express-js-58775f098407
 https://knowledge.udacity.com/questions/392738
 
-
+API
+https://knowledge.udacity.com/questions/335736
+https://knowledge.udacity.com/questions/365124
+https://knowledge.udacity.com/questions/374407
 
 https://medium.com/better-programming/8-common-data-structures-in-javascript-3d3537e69a27
 https://medium.com/@dtinth/immutable-js-persistent-data-structures-and-structural-sharing-6d163fbd73d2
@@ -21,3 +24,12 @@ https://api.nasa.gov/planetary/apod?api_key=XLEGvcubeqKBhXgHfFeGEGFclnxOdLLlUJb0
 
 
 https://dmitripavlutin.com/javascript-object-destructuring/
+
+//get photos
+https://knowledge.udacity.com/questions/335736
+
+/store/state https://knowledge.udacity.com/questions/387257
+
+https://knowledge.udacity.com/questions/393201
+
+//immutable objecthttps://knowledge.udacity.com/questions/362011
