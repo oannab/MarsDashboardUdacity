@@ -154,7 +154,7 @@ const RoverPhotos = (store) => {
       updateStore('roverPhotos', roverData)
       console.log('Details', roverData);
     })
-                              
+}                         
   if (roverPhotos) {     
     getRoverPhotos
       return  `
