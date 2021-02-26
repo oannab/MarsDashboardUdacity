@@ -230,11 +230,11 @@ const chooseRover = (store) => {
 }
 
 const RoverPhotos = (roverPhotos) => {
-  if (roverImg.roverPhotos !== undefined) {
+  if (!roverImg.roverPhotos) {
     return roverImages.roverPhotos.map(rover => {
       console.log('Details', rover);
       return `<div>
-      <img src=${rover.img_src} alt="First description" />
+      <img src=${rover.img_src} alt="description" />
       <span class="description">${rover.earth_date}</span>
   </div>
   `;
@@ -279,8 +279,8 @@ const showRovers = (state, rovers) => {
     
   	return (
       `<button class="nav"
-          onclick="setTimeout(updateStore, 3000, 'selectedRover', '${rovers}')">
-          <h2 class="card-title">${rovers}</h2>
+          onclick="setTimeout(updateStore, 'selectedRover', '${rovers}')">
+          <h2 class="rover-container">${rovers}</h2>
 	   </button>`
     )
 }
