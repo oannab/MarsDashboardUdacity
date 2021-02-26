@@ -4,7 +4,7 @@ let store = Immutable.Map({
     selectedRovers: '',
     data: [],
     rovers: ['Curiosity', 'Opportunity', 'Spirit'],
-  	//roverImg: []
+    roverImg: []
     //roverPhoto: new Map([['Curiosity',{}],['Opportunity',{}],['Spirit',{}]])
 })
 
