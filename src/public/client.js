@@ -4,7 +4,7 @@ let store = Immutable.Map({
     selectedRovers: '',
     data: [],
     rovers: ['Curiosity', 'Opportunity', 'Spirit'],
-  	roverPhotos: []
+  	//roverImg: []
     //roverPhoto: new Map([['Curiosity',{}],['Opportunity',{}],['Spirit',{}]])
 })
 
@@ -13,9 +13,17 @@ const root = document.getElementById('root')
 
 console.log(Immutable.Map.isMap(store), store);
 
-const updateStore = (property, value) => {
-     store = state.set(property, value)  
-     render(root, store)
+const updateStore = (key, newState) => {
+    console.log('Before: ', store)
+  	if (key && !newState) {
+    return store.toJS()[key];
+  }
+    const newStore = store.setIn([key], Immutable.fromJS(newState))      //set to add elements to array, to avoid declaring to many vari     console.log('After: ', store); 
+    	if (!newStore === store) {
+     	   store = newStore;
+      	}
+    console.log("inside UpdateStore")
+    render(root, store)  
 }
 
 
@@ -38,12 +46,12 @@ const App = (state) => {
     return `
         <header>
 			<h3> Mars Dashboard </h3>
-			<div class="nav">Show me the rovers ${roverBtn(rovers) }</div>
+			<div class="nav">Show me the rovers ${navTab(rovers) }</div>
 		</header>
         <main>
             <section>
                 <h3>Put things on the page!</h3>
-					${RoverPhotos(state)}
+					${getRoverPhotos(state, rovers)}
 				
 				
             </section>
@@ -56,7 +64,7 @@ const App = (state) => {
 
 // listening for load event because page should load before any JS is called
 window.addEventListener('load', () => {
-    getRoverPhotos(state, rover)
+    render(root, store)
     console.log("inside window.EventListener")
 })
 
@@ -64,10 +72,109 @@ window.addEventListener('load', () => {
 
 // ------------------------------------------------------  COMPONENTS
  
+/*
+const RoverPhotos = (store, getRoverPhotos) => {
+  
+    const showPhotos = store.roverPhotos
+    console.log("inside RoverPhotos to call getRP")
 
+    const photoURL = showPhotos.map(photo => photo.img_src)
+
+    //if photos still do not exist, update the condition and store imagery
+    if(!showPhotos){
+        console.log("Check Rover photos is not null")
+        return getRoverPhotos(state, rovers) 
+    } else if (showPhotos) {
+        console.log("Check Rover photos are loading.just before")
+        return `
+            <div class="rov-photos">
+                ${photoURL}
+            </div>    
+        `
+    } else {
+        console.log("no condition met in photo loading.->exiting RoverPhotos")
+        return `Hold on while we fetch the images`
+    }
+}
+*/
+/*
+    // use this function component to change onclick the innerHTML
+function chooseRover () {
+	let chosen = document.getElementById('rovers').value;
+    store.selectedRovers = chosen
+} 
+*//*
+const rovSrc = (src) => {
+    `<img src="${src}" class="rover-image">`
+}
+const roverImages = () => {
+    return store.roverPhotos.map(img => {
+    `<img src="${photo.img_src}">`
+  ).join('');
+    .map(photo => rovSrc.map(photos.get('img_src')))
+    .reduce((acc, curr) => acc + curr);
+}*/
+/*
+// Pure function that renders conditional information 
+const RoverData = (store, getRoverData) => {
+  	console.log('inside ROVERADATA')
+	getRoverdata(state);
+  	getRoverPhotos(state);
+  
+  	console.log(store.has('roverPhotos'));	
+  
+  	console.log({ data });
+  	console.log({ roverPhotos });
+/*	//let rovers = { rovers }
+        
+   // let showRoverInfo = store.selectedRovers
+  //  console.log(showRoverInfo `this is the print for -store.selectedRovers-`);
+    console.log("inside RoverData to call getRD & RoverPhotos")
+
+    const photoDate = rovers.earth_date
+    console.log(photoDate) /////
+    const launch = rovers.launch_date
+    console.log(launch)///////////
+    const land = rovers.landing_date
+    console.log(land)///////////
+    const photoTitle = rovers.name
+    console.log(photoTitle)//////////////
+    const missionSts = rovers.status
+    
+    const photoDsc = `<ul class="rover-info">
+                        <li>Rover name: ${showRoverInfo.name}</li>
+                        <li>Rover name: ${showRoverInfo.name} was launched on: ${launch}</li>
+                        <li>Rover name: ${showRoverInfo.name} has landed on Mars on: ${land}</li>
+                        <li>Rover name: The picture was taken on ${photoDate}</li>
+                        <li>Rover name: Rover's mission status: ${missionSts}</li>
+                    </ul>`
+
+    //if no SelectedRover still has no rover chosen stored, update the condition
+    if (!showRoverInfo) {
+        console.log("inside if rovers=undefined")
+        return getRoverData(store)
+        
+    } else if(showRoverInfo) {
+        console.log("inside else if to display data and call RoverPhotos")
+        return `
+            <div class="info">
+                <h4 class="photo-title">${photoTitle}</h4>
+                <p class="description">${photoDsc}</p>
+            </div>
+
+            ${data}
+                       
+        `
+    } else {
+        console.log("failed to load any data inside RovData")
+        return `Fetching rovers`
+    }
+  
+}
+ */
 
 // Example of a pure function that renders infomation requested from the backend
-
+/*
 const ImageOfTheDay = (store) => {
 	let apod = store.apod
   
@@ -97,128 +204,140 @@ const ImageOfTheDay = (store) => {
         `)
     }
 }
-
-
-
-const chooseRover = (rover) => {
-    console.log(rover);
-    store = store.set("selectedRovers", rover);
-    clickButton(e);
-    //getRoverPhotos(store.get("rovers"));
-    console.log(`setRover is called`);
-   // render(root, newStore);
-}
-  
+*//*
+const updateRover = (event) = {
+  store = state.merge(newState)
+}*/
 const clickButton = (e) => {
   console.log(e.value)
-  return (
-  	getRoverData(e.value)
-  )
+  //location.assign("http://localhost:3000/roverInfo/" + e.value)
+  getRoverData(e.value)
 
 }
+const chooseRover = (store) => {
+  console.log(store.roverPhotos)
 
- const roverBtn = (rovers) => {
-   // let roverBttn = document.getElementById("roverBtn")
-    return `
-      <button class="roverBtn" onclick="chooseRover('${rovers}')">
-        ${rovers}
-      </button>
-       `;
-  }
+  return `
+  <ul class="roverInfo">
+    <li>Name: ${store.data.name}</li>
+    <li>ID: ${store.data.rovers.id}</li>
+    <li>Launch Date: ${store.data.rovers.launch_date}</li>
+    <li>Landing Date: ${store.data.rovers.landing_date}</li>
+    <li>Status: ${store.data.rovers.status}</li>
+    ${RoverPhotos()}
+  </ul>
+  `
+}
 
-const createRoverLinks = () => {
-    return `<nav>
-    <ul class="nav">
-      ${store.get("selectedRover").map((rovers) => roverBtn(rovers))
-        .join("")}
-    </ul>
-  </nav>`;
-  }
-
-
-const RoverPhotos = (store) => {
-  
-  const { latest_photos } = state.data.results
-
-    //photo array for img.src url
-    const photoURL = latest_photos.map(photo => photo.img_src)
-
-    const photoDate = state.data.results.latest_photos[0].earth_date
-
-    // Get the required mission data
-    const { name, launch_date, landing_date, status } =
-        state.data.results.latest_photos[0].rover
-  
-  if (state.roverPhotos !== undefined) {
-    return getRoverPhotos.map(roverData => {
-      updateStore('roverPhotos', roverData)
-      console.log('Details', roverData);
-    })
-}                         
-  if (roverPhotos) {     
-    getRoverPhotos
-      return  `
-      <div class="rover-container">
-        <img src="${photoURL}" class="rover-image" />
-        <ul class="rover-card">
-          <li>Photo ID: ${name}</li>
-          <li>Landing Date: ${landing_date}</li>
-          <li>Launch Date: ${launch_date}</li>
-          <li>Status: ${status}</li>
-        </ul>
-      </div>`;
-    
+const RoverPhotos = (roverPhotos) => {
+  if (roverImg.roverPhotos !== undefined) {
+    return roverImages.roverPhotos.map(rover => {
+      console.log('Details', rover);
+      return `<div>
+      <img src=${rover.img_src} alt="First description" />
+      <span class="description">${rover.earth_date}</span>
+  </div>
+  `;
+    });
   } else {
     return '<h1>Loading</h1>';
   }
+};(state) => {
+  const showRovImg = store.setIn(photos.map(photo => {
+    return `<img src="${photo.img_src}">`
+  }));
+  `
+        <img class="photo" src="${url}" alt="Photo taken on Mars by 
+        ${state.get('selectedRover')}"/>
+        )
+        
+    `
+    //return` <li><img src="${photo}"></li> `
 
 }
 
 
+const navTab = (rovers) => {
+// Navigation bar to switch between rovers/imageoftheday/weather
 
-const showRovers = (state, rover) => {
+        //const navBar = document.getElementbyClass('nav')
+        //const chooseBtn = selected === { selectedRover} ? 'active' : 'inactive'
+        const nav = rovers.map((element,index) => {
+          const a = `<div><button id="${element}" class="nav ${index === store.get("selectedRover") ? "active" : ""}" 
+              onclick='chooseRover(${element},${index})'> ${element} 	
+              </button></div>`
+          return a
+        }).join(' ');
+
+    	return `<nav>
+                	${nav}
+            	</nav>`;
+ 
+ }
+
+const showRovers = (state, rovers) => {
     
   	return (
-      `<button class="rover-card" onclick="updateStore(store, {selectedRover: '', data: ''})">Back</button>
-        ${RoverPhotos(state, getRoverPhotos)}
-          <h2 class="card-title">${rover}</h2>`
+      `<button class="nav"
+          onclick="setTimeout(updateStore, 3000, 'selectedRover', '${rovers}')">
+          <h2 class="card-title">${rovers}</h2>
+	   </button>`
     )
 }
 
 //------------------------------------------------------  API CALLS
-
+/*
 // Example API call
 const getImageOfTheDay = async (store) => {
-  	  function catchEr (error) {
+  
+    await fetch(`https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/?name=${apod}`)
+      .then(res => res.json())
+      .then(apod => updateStore(store, Immutable.Map({
+        apod
+      })))
+      console.log(apod);
+      console.log(store.apod);
+      catch (error) {
+      console.log("errors:", error);
+      }
+};*//*
+const getRoverData = (state, rovers) => {
+    function catchEr (error) {
       console.log(error)
-      } 
-      
-  	  await fetch(`https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/?name=${apod}`)
-        .then(res => res.json())
-        .then(apod => updateStore(store, Immutable.Map({
-          apod
-        })))
-        console.log(apod);
-        console.log(store.apod);
-        
-};
+    }  
+  
+  
+   // const urlData = `https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/rover/${rovers}`;
+  //	const getRovers = Array.from(rovers).map(roverName => urlData);
+  	//getRovers.map(url =>
+      fetch(urlData, {
+          method: 'GET'
+      })
+          .then(response => response.json())
+          .then(data => {
+              const rov = state.set('rovers', data)
+              updateStore(store, {rovers: rov})
+              console.log("merging store and json inside getRData")
+              console.log(store.data)
+              console.log("res.json", response.json());
+      }).catch ("error: ", catchEr) 
+}   */
 
-let getRoverPhotos = async (state, rover) => {
+const getRoverPhotos = async (store, rovers) => {
   	function catchEr (error) {
       console.log(error)
     }  
-	let roverPhotos = state.get('roverImg')
-    const urlPh = `https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/rover_photos/${rover}`;
+	let roverPhotos = store.get('roverImg')
+    const urlPh = `https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/roverInfo/${rovers}`;
     await fetch(urlPh, {
         method: 'GET'
     })
-        .then(res => res.json())
+        .then(response => response.json())
         .then(roverInfo => {
       		//let roverPhotos = store.set('roverPhotos');store.
 			console.log(roverInfo)
-            const getPhotos = state.set('roverImage', roverInfo);
-            updateStore(state, getPhotos);
-            
+            const getPhotos = store.set(roverInfo.latest_photos.map(imgObj => imgObj.img_src));
+            updateStore(store, getPhotos);
         
       		console.log("merging store and json inside getRPhotos")
       		console.log(getPhotos)
@@ -226,9 +345,65 @@ let getRoverPhotos = async (state, rover) => {
     	}).catch ("error: ", catchEr)   
 }    
 
-getRoverPhotos(state);
+getRoverPhotos();
+/*
+const getRoverData = async (state, rovers) => {
+	console.log('print from insde API CALLgetRoverData')
+  	let dataR = store.get('data');
+    
+    function catchEr (error) {
+      console.log(error)
+    } 
+  
+    let callUrl = `https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/rover_name/?name=${rovers}`;
+  	async function fetchRData() {
+      const response =  await fetch(callUrl)
+      .then(response => response.json())
+      .then(dataInfo => { console.log(dataInfo)
+         // let newInfo = state.set(dataInfo.map( dataI => dataI.rover.photo_manifest))
+          console.log('after data mapping');
+      // updateStore(store, Immutable.Map({data: newInfo}));
+      }) .catch ("error: ", catchEr)
+      
+}     
+  
+getRoverData();  
+*/
+      //let rovUrl = rovers.map(rover => urlDt);
+      //console.log(data);
+  	 // console.log(newInfo);
+  	  //console.log(store.rovers)
+    //} 
+  	//return fetchRData();
+ 
 
-  /*
+/*
+//send API request
+const getRoverPhotos = async (rovers) => { 
+	//let roverPhotos = store.toJS().roverPhotos;
+  
+	console.log('print from insde API CALLgetRoverPhotos ');
+  	
+  	let urlPh = `https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/rover-photos?name=${store.rovers}`;
+  	let resp = await fetch(``)
+	
+    const responseP = await fetch(urlPh)
+    	.then(res => res.json())
+  		.then(response => {
+      	 console.log(response);
+      	 
+         roverPhotos.set(rovers, response.latest_photos.map(roverPhoto => roverPhotos.img_src));
+         updateStore(state, Immutable.Map({roverPhotos: response, selectedRover: rovers}));
+          });
+         console.log('print json for getPhotos') 
+         //console.log(JSON.stringify(roverPhotos))
+         console.log(store)
+  		 console.log(store.roverPhotos)
+  
+ 		console.log(resp)
+    //return 
+}*/
+/*
 let navBarBtn = document.querySelector('#nav');
 function showRoversOnClick() {
   navBarBtn.addEventListener('click', () => {
