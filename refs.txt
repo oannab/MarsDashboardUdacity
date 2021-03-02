@@ -7,11 +7,16 @@ https://jasonwatmore.com/post/2016/06/22/nodejs-setup-simple-http-server-local-w
 https://blog.codeanalogies.com/2018/04/26/web-servers-explained-by-running-a-microbrewery/
 https://medium.com/javascript-in-plain-english/deploying-a-localhost-server-with-node-js-and-express-js-58775f098407
 https://knowledge.udacity.com/questions/392738
+https://expressjs.com/en/guide/routing.html
+https://medium.com/codebuddies/getting-to-know-asynchronous-javascript-callbacks-promises-and-async-await-17e0673281ee
 
 API
 https://knowledge.udacity.com/questions/335736
 https://knowledge.udacity.com/questions/365124
 https://knowledge.udacity.com/questions/374407
+
+https://medium.com/codebuddies/getting-to-know-asynchronous-javascript-callbacks-promises-and-async-await-17e0673281ee
+
 
 https://medium.com/better-programming/8-common-data-structures-in-javascript-3d3537e69a27
 https://medium.com/@dtinth/immutable-js-persistent-data-structures-and-structural-sharing-6d163fbd73d2
@@ -33,3 +38,10 @@ https://knowledge.udacity.com/questions/335736
 https://knowledge.udacity.com/questions/393201
 
 //immutable objecthttps://knowledge.udacity.com/questions/362011
+
+https://knowledge.udacity.com/questions/394298
+https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976
+http://untangled.io/immutable-js-get-set-update-and-delete-data-from-maps/
+
+
+https://devdocs.io/immutable/index#fromjs()
