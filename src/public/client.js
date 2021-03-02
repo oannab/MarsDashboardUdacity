@@ -195,7 +195,7 @@ const ImageOfTheDay = (apod) => {
 const getImageOfTheDay = async (apod) => {
 
     try {
-        await fetch(`https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/${apod}`)
+        await fetch(`http://localhost:3000/${apod}`)
         .then(res => res.json())
         .then(apod => updateStore(store, { //store received information inside 'store' Immutable Object
             apod
@@ -208,7 +208,7 @@ const getImageOfTheDay = async (apod) => {
 // API call to get rover information and photos
 const getRoverData = async (rover_name) => {
     try {
-        await fetch(`https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/roverInfo/${rover_name}`)
+        await fetch(`http://localhost:3000/roverInfo/${rover_name}`)
         .then(res => res.json())
         .then(roverInfo => updateStore(store, roverInfo))
             console.log(roverInfo);
