@@ -214,7 +214,7 @@ const getImageOfTheDay = async (apod) => {
 // API call to get rover information and photos
 const getRoverData = async (rover_name) => {
   try {
-    await fetch(`https://r950324c957034xreactr0lcusuk-3000.udacity-student-workspaces.com/roverInfo/${rover_name}`)
+    await fetch(`https://localhost:3000/roverInfo/${rover_name}`)
       .then(res => res.json())
       .then(roverInfo => updateStore(store, roverInfo))
        // console.log(roverInfo);
